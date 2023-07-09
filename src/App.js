@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import logo from './logo.svg';
 import './App.css';
 import Nav from './views/Nav';
 import Todo from './views/Todo';
+import { uuid } from 'uuidv4'
 
 function App() {
   let [name, setName] = useState('Minh Nguyen');//trả về [a,b]
@@ -19,6 +20,13 @@ function App() {
 
   ]);
 
+  useEffect(() => {
+    console.log('>>>run use effect')
+  }, [address]);
+  useEffect(() => {
+    console.log('>>>run use todo')
+  }, [todos]);
+
   const handleEventClick = (event) => {
     if (!address) {
       alert('enter something please!');
@@ -27,7 +35,8 @@ function App() {
     //đv hook sẽ ko có chức năng Merge State
     //nghĩa là Class: nến setState([todo]) thì phần tử todo mới này sẽ được thêm vào cuối todos
     //tuy nhiên ở Hook: thì phần tử todo mới này sẽ ghi đè, và làm mất 2 phần tử ở todos
-    let id = Math.floor(Math.random() * 1000)
+    // let id = Math.floor(Math.random() * 1000)
+    let id = uuid()
     let newTodo = { id: id, title: address, username: 'New' }
     setTodos([...todos, newTodo])
     setAddress('')
