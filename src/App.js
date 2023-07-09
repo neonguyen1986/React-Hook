@@ -4,16 +4,29 @@ import './App.css';
 import Nav from './views/Nav';
 
 function App() {
-  let [name, setName] = useState('Minh Nguyen')//trả về [a,b]
+  let [name, setName] = useState('Minh Nguyen');//trả về [a,b]
   //hàm useState này sẽ trả về 1 array: 
   //gồm name = a:giá trị của biến
   //setName=b: một function xử lý khi biến này thay đổi
   //cách gọi  const[a,b] được gọi là destructuring (giản lược cú pháp)
-  let [address, setAddress] = useState('Calgary')
+  const [address, setAddress] = useState('Calgary');
+  const [todos, setTodos] = useState([
+    { id: 'todo1', title: 'Coding' },
+    { id: 'todo2', title: 'Chatting' }
+  ]);
+
   const handleEventClick = (event) => {
-    setName(address)
-    console.log(">>>you've just click", name)
-    console.log('---input content: ', address)
+    if (!address) {
+      alert('enter something please!');
+      return;
+    }
+    //đv hook sẽ ko có chức năng Merge State
+    //nghĩa là Class: nến setState([todo]) thì phần tử todo mới này sẽ được thêm vào cuối todos
+    //tuy nhiên ở Hook: thì phần tử todo mới này sẽ ghi đè, và làm mất 2 phần tử ở todos
+    let id = Math.floor(Math.random() * 1000)
+    let newTodo = { id: id, title: address }
+    setTodos([...todos, newTodo])
+    setAddress('')
   }
 
   const handleOnChangeInput = (event) => {
@@ -26,7 +39,16 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h3>Hello world with React with {name}</h3>
-        <input
+        {todos && todos.length > 0 &&
+          todos.map((item, index) => {
+            return (
+              <li className="todo-child" key={item.id}>
+                {index + 1} - {item.title}
+              </li>
+            )
+          })
+        }
+        < input
           type="text"
           value={address}
           onChange={(event) => handleOnChangeInput(event)}
