@@ -12,8 +12,11 @@ function App() {
   //cách gọi  const[a,b] được gọi là destructuring (giản lược cú pháp)
   const [address, setAddress] = useState('Calgary');
   const [todos, setTodos] = useState([
-    { id: 'todo1', title: 'Coding' },
-    { id: 'todo2', title: 'Chatting' }
+    { id: 'todo1', title: 'Coding', username: 'Minh' },
+    { id: 'todo2', title: 'Playing game', username: 'Van' },
+    { id: 'todo3', title: 'Chatting', username: 'Minh' },
+    { id: 'todo4', title: 'Reconsizing', username: 'Van' },
+
   ]);
 
   const handleEventClick = (event) => {
@@ -25,7 +28,7 @@ function App() {
     //nghĩa là Class: nến setState([todo]) thì phần tử todo mới này sẽ được thêm vào cuối todos
     //tuy nhiên ở Hook: thì phần tử todo mới này sẽ ghi đè, và làm mất 2 phần tử ở todos
     let id = Math.floor(Math.random() * 1000)
-    let newTodo = { id: id, title: address }
+    let newTodo = { id: id, title: address, username: 'New' }
     setTodos([...todos, newTodo])
     setAddress('')
   }
@@ -42,6 +45,10 @@ function App() {
         <h3>Hello world with React with {name}</h3>
         <Todo
           childTodos={todos}
+        />
+
+        <Todo
+          childTodos={todos.filter(item => item.username === 'Minh')}
         />
         < input
           type="text"

@@ -11,7 +11,9 @@ const Todo = (props) => {
                     )
                 })
             }
+            <hr />
         </div>
+
     )
 }
 export default Todo;
