@@ -2,6 +2,7 @@ import { useState } from 'react'
 import logo from './logo.svg';
 import './App.css';
 import Nav from './views/Nav';
+import Todo from './views/Todo';
 
 function App() {
   let [name, setName] = useState('Minh Nguyen');//trả về [a,b]
@@ -39,15 +40,9 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h3>Hello world with React with {name}</h3>
-        {todos && todos.length > 0 &&
-          todos.map((item, index) => {
-            return (
-              <li className="todo-child" key={item.id}>
-                {index + 1} - {item.title}
-              </li>
-            )
-          })
-        }
+        <Todo
+          childTodos={todos}
+        />
         < input
           type="text"
           value={address}
