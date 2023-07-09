@@ -37,6 +37,12 @@ function App() {
     setAddress(event.target.value)
   }
 
+  const deleteDataTodo = (id) => {
+    let tempTodo = todos;
+    tempTodo = tempTodo.filter(item => item.id !== id)
+    setTodos(tempTodo)
+  }
+
   return (
     <div className="App">
       <Nav />
@@ -45,10 +51,12 @@ function App() {
         <h3>Hello world with React with {name}</h3>
         <Todo
           childTodos={todos}
+          deleteDataTodo={deleteDataTodo}
         />
 
         <Todo
           childTodos={todos.filter(item => item.username === 'Minh')}
+          deleteDataTodo={deleteDataTodo}
         />
         < input
           type="text"

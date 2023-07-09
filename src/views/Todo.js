@@ -1,13 +1,30 @@
+
+
 const Todo = (props) => {
-    const todos = props.childTodos;
+    const { childTodos, deleteDataTodo } = props;
+    //khi truyền props nên truyền như cách trên
+
+    const handleDeleteTodo = (id) => {
+        // console.log('>>>check todo: ', todo)
+        deleteDataTodo(id)
+    }
     return (
         <div className='todo-container'>
-            {todos && todos.length > 0 &&
-                todos.map((item, index) => {
+            {childTodos && childTodos.length > 0 &&
+                childTodos.map((item, index) => {
                     return (
-                        <li className="todo-child" key={item.id}>
-                            {index + 1} - {item.title}
-                        </li>
+                        <div className="todo-child">
+                            <li key={item.id}>
+                                {index + 1} - {item.title} &nbsp;
+                                <span>
+                                    <button
+                                        type="button"
+                                        onClick={() => handleDeleteTodo(item.id)}>
+                                        Delete</button>
+                                </span>
+                            </li>
+
+                        </div>
                     )
                 })
             }
