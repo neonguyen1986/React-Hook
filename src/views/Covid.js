@@ -36,8 +36,8 @@ const Covid = () => {
 
             setDataCovid(data)
             setLoading(false)
-        } catch (error) {
-            console.error(error);
+        } catch (e) {
+            console.log('>>>error: ', e);
         }
         // }, 2000)
         // let res = await axios.get('https://api.covidtracking.com/v1/states/daily.json')
@@ -46,7 +46,6 @@ const Covid = () => {
         // // console.log('>check respond: ', res.data)
     }, []);
 
-    let x = 10
 
     return (
         <>
