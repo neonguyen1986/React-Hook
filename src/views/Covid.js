@@ -7,12 +7,13 @@ const Covid = () => {
 
     const [dataCovid, setDataCovid] = useState([])
     const [loading, setLoading] = useState(true)
+    const [errMsg, setErrMsg] = useState(false)
 
     const options = {
         method: 'GET',
         url: 'https://covid-italy-statistics.p.rapidapi.com/statistics/compressed',
         headers: {
-            'X-RapidAPI-Key': '1d735e1143msh0e2877fd0b084c7p16fe80jsn5b8aa8f571e4',
+            'X-RapidAPI-Key': 'xxx1d735e1143msh0e2877fd0b084c7p16fe80jsn5b8aa8f571e4',
             'X-RapidAPI-Host': 'covid-italy-statistics.p.rapidapi.com'
         }
     };
@@ -36,7 +37,10 @@ const Covid = () => {
 
             setDataCovid(data)
             setLoading(false)
+            setErrMsg(false)
         } catch (e) {
+            setErrMsg(true)
+            setLoading(false)//để ko hiển thị Loading nữa
             console.log('>>>error: ', e);
         }
         // }, 2000)
@@ -62,7 +66,8 @@ const Covid = () => {
                 </thead>
                 <tbody>
 
-                    {loading === false && dataCovid && dataCovid.length > 0 &&
+
+                    {errMsg === false && loading === false && dataCovid && dataCovid.length > 0 &&
                         dataCovid.map(item => {
                             return (
                                 <tr key={uuidv4()}>
@@ -78,6 +83,11 @@ const Covid = () => {
                     {loading === true &&
                         <tr>
                             <td colSpan='5'>LOADING...</td>
+                        </tr>
+                    }
+                    {errMsg === true &&
+                        <tr>
+                            <td colSpan='5'>Something Wrong...</td>
                         </tr>
                     }
 
