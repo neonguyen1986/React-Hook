@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import { uuid } from 'uuidv4'
+import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
 
 const Covid = () => {
 
     const [dataCovid, setDataCovid] = useState([])
+    const [loading, setLoading] = useState(true)
 
     const options = {
         method: 'GET',
@@ -18,6 +19,7 @@ const Covid = () => {
 
     //Giống componentDidMount trong class
     useEffect(async () => {
+        // setTimeout(async () => {
         try {
             const res = await axios.request(options);
             console.log(res.data);
@@ -33,44 +35,56 @@ const Covid = () => {
             }
 
             setDataCovid(data)
+            setLoading(false)
         } catch (error) {
             console.error(error);
         }
+        // }, 2000)
         // let res = await axios.get('https://api.covidtracking.com/v1/states/daily.json')
         // let data = res && res.data ? res.data : []
         // setDataCovid(data)
         // // console.log('>check respond: ', res.data)
     }, []);
 
+    let x = 10
+
     return (
-        <table id="customers">
-            {console.log('>>>check data covid:', dataCovid)}
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>State</th>
-                    <th>Confirmed</th>
-                    <th>Active</th>
-                    <th>Recovered</th>
-                </tr>
-            </thead>
-            <tbody>
-                {dataCovid && dataCovid.length > 0 &&
-                    dataCovid.map(item => {
-                        return (
-                            <tr key={uuid()}>
-                                <td>{item.lastUpdatedTime}</td>
-                                <td>{item.state}</td>
-                                <td>{item.confirmed}</td>
-                                <td>{item.active}</td>
-                                <td>{item.recovered}</td>
+        <>
+            <table id="customers">
+                {console.log('>>>check data covid:', dataCovid)}
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>State</th>
+                        <th>Confirmed</th>
+                        <th>Active</th>
+                        <th>Recovered</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-                            </tr>
-                        )
-                    })}
+                    {loading === false && dataCovid && dataCovid.length > 0 &&
+                        dataCovid.map(item => {
+                            return (
+                                <tr key={uuidv4()}>
+                                    <td>{item.lastUpdatedTime}</td>
+                                    <td>{item.state}</td>
+                                    <td>{item.confirmed}</td>
+                                    <td>{item.active}</td>
+                                    <td>{item.recovered}</td>
 
-            </tbody>
-        </table>
+                                </tr>
+                            )
+                        })}
+                    {loading === true &&
+                        <tr>
+                            <td colSpan='5'>LOADING...</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </>
     )
 }
 

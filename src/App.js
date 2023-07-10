@@ -59,7 +59,7 @@ function App() {
       <Nav />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h3>Hello world with React with {name}</h3>
+        <h3>Tracking Covid 19 from Italy</h3>
 
         <Covid />
 
