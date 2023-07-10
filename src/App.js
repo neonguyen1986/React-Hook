@@ -5,6 +5,8 @@ import Nav from './views/Nav';
 import Todo from './views/Todo';
 import { uuid } from 'uuidv4'
 
+import Covid from './views/Covid';
+
 function App() {
   let [name, setName] = useState('Minh Nguyen');//trả về [a,b]
   //hàm useState này sẽ trả về 1 array: 
@@ -21,10 +23,10 @@ function App() {
   ]);
 
   useEffect(() => {
-    console.log('>>>run use effect')
+    // console.log('>>>run use effect')
   }, [address]);
   useEffect(() => {
-    console.log('>>>run use todo')
+    // console.log('>>>run use todo')
   }, [todos]);
 
   const handleEventClick = (event) => {
@@ -58,7 +60,10 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h3>Hello world with React with {name}</h3>
-        <Todo
+
+        <Covid />
+
+        {/* <Todo
           childTodos={todos}
           deleteDataTodo={deleteDataTodo}
         />
@@ -77,7 +82,7 @@ function App() {
           onClick={(event) => handleEventClick(event)}
         >
           Click Me
-        </button>
+        </button> */}
       </header>
     </div>
   );
