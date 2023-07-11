@@ -16,6 +16,9 @@ import Covid from './views/Covid';
 
 import { CountDown, NewCowntDown } from './views/Countdown';
 
+import Blog from './views/Blog';
+import DetailBlog from './views/DetailBlog';
+
 function App() {
   let [name, setName] = useState('Minh Nguyen');//trả về [a,b]
   //hàm useState này sẽ trả về 1 array: 
@@ -104,6 +107,13 @@ function App() {
                 Click Me
               </button>
             </Route>
+            <Route path="/blog" exact>
+              <Blog />
+            </Route>
+            <Route path="/blog/:id">
+              <DetailBlog />
+            </Route>
+
             <Route path="/secret">
               <CountDown onTimeUp={onTimeUp} />
               <span>------------------</span>

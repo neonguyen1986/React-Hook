@@ -13,7 +13,7 @@ const Covid = () => {
         }
     };
 
-    const { data: dataCovid, loading, errMsg } = useFetch(options)
+    const { data: dataCovid, loading, errMsg } = useFetch(options, true, false)
 
 
     return (

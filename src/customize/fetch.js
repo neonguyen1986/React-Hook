@@ -3,7 +3,7 @@ import axios from 'axios';
 import moment from 'moment'
 
 
-const useFetch = (url) => { //phải bắt đầu bằng use để React hiểu đây là custom Hook
+const useFetch = (url, isCovidData, isBlogData) => { //phải bắt đầu bằng use để React hiểu đây là custom Hook
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
     const [errMsg, setErrMsg] = useState(false)
@@ -21,10 +21,13 @@ const useFetch = (url) => { //phải bắt đầu bằng use để React hiểu 
                         CancelToken: ourRequest.token,//2nd step
                     });
                 console.log(res.data);
-                let data = res && res.data && res.data.regions ? res.data.regions : []
+                let data = isCovidData === true ?
+                    (res && res.data && res.data.regions ? res.data.regions : []) :
+                    (isBlogData === true ? (res && res.data ? res.data : []) : [])
+
 
                 //chuyển ngày
-                if (data && data.length > 0) {
+                if (data && data.length > 0 && isCovidData === true) {
                     data.map(item => {
                         return (
                             item.lastUpdatedTime = moment(item.lastUpdatedTime).format('YYYY/MM/DD')
