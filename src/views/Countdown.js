@@ -9,6 +9,12 @@ class CountDown extends React.Component {
     //setInterval nghĩa là sau n giây sẽ chạy hàm bên trong setInterval 1 lần
     //như vậy quá trình sẽ là vào Render, sau đó vào DidMount và bị lặp vô hạn
     //Vậy làm sao để dừng lại?
+    componentWillUnmount() {
+        if (this.timer) {
+            clearInterval(this.timer)
+        }
+    }
+
     componentDidMount() {
         this.timer = setInterval(() => {
             this.setState({
@@ -30,6 +36,9 @@ class CountDown extends React.Component {
             }
         }
     }
+
+    // Hàm này để đảm bảo khi ko còn thay đổi nữa thì sẽ disable setInterval
+
 
 
     render() {

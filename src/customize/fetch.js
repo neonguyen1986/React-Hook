@@ -11,9 +11,15 @@ const useFetch = (url) => { //phải bắt đầu bằng use để React hiểu 
     //Giống componentDidMount trong class
     useEffect(() => {
         // setTimeout(async () => {
-        try {
-            async function fetchData() {
-                const res = await axios.request(url);
+        const ourRequest = axios.CancelToken.source()//1st step
+        async function fetchData() {
+            try {
+
+                const res = await axios.request(
+                    url,
+                    {
+                        CancelToken: ourRequest.token,//2nd step
+                    });
                 console.log(res.data);
                 let data = res && res.data && res.data.regions ? res.data.regions : []
 
@@ -30,11 +36,18 @@ const useFetch = (url) => { //phải bắt đầu bằng use để React hiểu 
                 setLoading(false)
                 setErrMsg(false)
             }
-            fetchData();
-        } catch (e) {
-            setErrMsg(true)
-            setLoading(false)//để ko hiển thị Loading nữa
-            console.log('>>>error: ', e);
+            catch (e) {
+                if (axios.isCancel(e)) {
+                    console.log('>>>request canceled', e.message)
+                } else {
+                    setErrMsg(true)
+                    setLoading(false)//để ko hiển thị Loading nữa
+                }
+            }
+        }
+        fetchData();
+        return () => {
+            ourRequest.cancel('Cancel by user')//3rd step
         }
         // }, 2000)
         // let res = await axios.get('https://api.covidtracking.com/v1/states/daily.json')
