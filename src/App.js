@@ -2,6 +2,13 @@ import { useState, useEffect } from 'react'
 import logo from './logo.svg';
 import './App.css';
 import Nav from './views/Nav';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom'
+
 import Todo from './views/Todo';
 import { uuid } from 'uuidv4'
 
@@ -21,7 +28,6 @@ function App() {
     { id: 'todo2', title: 'Playing game', username: 'Van' },
     { id: 'todo3', title: 'Chatting', username: 'Minh' },
     { id: 'todo4', title: 'Reconsizing', username: 'Van' },
-
   ]);
 
   useEffect(() => {
@@ -61,41 +67,57 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Nav />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+    <Router>
+      <div className="App">
+        <Nav />
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <Switch>
+            <Route path="/" exact>
+              <h3>Tracking Covid 19 from Italy</h3>
+              <Covid />
+            </Route>
+            <Route path="/countdown">
+              <CountDown onTimeUp={onTimeUp} />
+              <span>------------------</span>
+              <NewCowntDown onTimeUp={onTimeUp} />
+            </Route>
+            <Route path="/todo">
+              <Todo
+                childTodos={todos}
+                deleteDataTodo={deleteDataTodo}
+              />
 
-        <CountDown onTimeUp={onTimeUp} />
-        <span>------------------</span>
-        <NewCowntDown onTimeUp={onTimeUp} />
+              <Todo
+                childTodos={todos.filter(item => item.username === 'Minh')}
+                deleteDataTodo={deleteDataTodo}
+              />
+              < input
+                type="text"
+                value={address}
+                onChange={(event) => handleOnChangeInput(event)}
+              />
+              <button
+                type="button"
+                onClick={(event) => handleEventClick(event)}
+              >
+                Click Me
+              </button>
+            </Route>
+            <Route path="/secret">
+              <CountDown onTimeUp={onTimeUp} />
+              <span>------------------</span>
+              <NewCowntDown onTimeUp={onTimeUp} />
+            </Route>
 
-        <h3>Tracking Covid 19 from Italy</h3>
+          </Switch>
 
-        <Covid />
 
-        {/* <Todo
-          childTodos={todos}
-          deleteDataTodo={deleteDataTodo}
-        />
 
-        <Todo
-          childTodos={todos.filter(item => item.username === 'Minh')}
-          deleteDataTodo={deleteDataTodo}
-        />
-        < input
-          type="text"
-          value={address}
-          onChange={(event) => handleOnChangeInput(event)}
-        />
-        <button
-          type="button"
-          onClick={(event) => handleEventClick(event)}
-        >
-          Click Me
-        </button> */}
-      </header>
-    </div>
+
+        </header>
+      </div>
+    </Router>
   );
 }
 
