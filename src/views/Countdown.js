@@ -45,22 +45,15 @@ class CountDown extends React.Component {
 
 //Viết theo kiểu Hook
 const NewCowntDown = (props) => {
-    const [count, setCount] = useState(10)
-
+    const [count, setCount] = useState(10);
     useEffect(() => {
-
         if (count === 0) {
-            props.onTimeUp();
-            return;
+            return
         }
-
-        let timer = setInterval(() => {
+        setTimeout(() => {
             setCount(count - 1)
         }, 1000)
-        return () => {
-            clearInterval(timer)
-        }
-    }, [count]);
+    }, [count])
 
     return (
         <div>
