@@ -7,6 +7,8 @@ import { uuid } from 'uuidv4'
 
 import Covid from './views/Covid';
 
+import { CountDown, NewCowntDown } from './views/Countdown';
+
 function App() {
   let [name, setName] = useState('Minh Nguyen');//trả về [a,b]
   //hàm useState này sẽ trả về 1 array: 
@@ -54,11 +56,20 @@ function App() {
     setTodos(tempTodo)
   }
 
+  const onTimeUp = () => {
+    alert('Time up')
+  }
+
   return (
     <div className="App">
       <Nav />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
+
+        <CountDown onTimeUp={onTimeUp} />
+        <span>------------------</span>
+        <NewCowntDown onTimeUp={onTimeUp} />
+
         <h3>Tracking Covid 19 from Italy</h3>
 
         <Covid />

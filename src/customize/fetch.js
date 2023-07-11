@@ -42,6 +42,7 @@ const useFetch = (url) => { //phải bắt đầu bằng use để React hiểu 
         // setData(data)
         // // console.log('>check respond: ', res.data)
     }, []);
+    // }, [url]); ta sẽ thêm url nếu muốn chạy nhiều lần khi ngày thay đổi
 
     return {
         data, loading, errMsg
