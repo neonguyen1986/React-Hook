@@ -13,31 +13,34 @@ const Covid = () => {
         method: 'GET',
         url: 'https://covid-italy-statistics.p.rapidapi.com/statistics/compressed',
         headers: {
-            'X-RapidAPI-Key': 'xxx1d735e1143msh0e2877fd0b084c7p16fe80jsn5b8aa8f571e4',
+            'X-RapidAPI-Key': '1d735e1143msh0e2877fd0b084c7p16fe80jsn5b8aa8f571e4',
             'X-RapidAPI-Host': 'covid-italy-statistics.p.rapidapi.com'
         }
     };
 
     //Giống componentDidMount trong class
-    useEffect(async () => {
+    useEffect(() => {
         // setTimeout(async () => {
         try {
-            const res = await axios.request(options);
-            console.log(res.data);
-            let data = res && res.data && res.data.regions ? res.data.regions : []
+            async function fetchData() {
+                const res = await axios.request(options);
+                console.log(res.data);
+                let data = res && res.data && res.data.regions ? res.data.regions : []
 
-            //chuyển ngày
-            if (data && data.length > 0) {
-                data.map(item => {
-                    return (
-                        item.lastUpdatedTime = moment(item.lastUpdatedTime).format('YYYY/MM/DD')
-                    )
-                })
+                //chuyển ngày
+                if (data && data.length > 0) {
+                    data.map(item => {
+                        return (
+                            item.lastUpdatedTime = moment(item.lastUpdatedTime).format('YYYY/MM/DD')
+                        )
+                    })
+                }
+
+                setDataCovid(data)
+                setLoading(false)
+                setErrMsg(false)
             }
-
-            setDataCovid(data)
-            setLoading(false)
-            setErrMsg(false)
+            fetchData();
         } catch (e) {
             setErrMsg(true)
             setLoading(false)//để ko hiển thị Loading nữa
