@@ -24,3 +24,32 @@
         }
     }
 }
+
+.btn-add {
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.add-new-container {
+    text-align: left;
+    border: 1px solid gray;
+    width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+
+    .text-add-new {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .input-data {
+        padding: 5px;
+        margin: 5px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .btn {
+        margin: 0 10px;
+    }
+}
