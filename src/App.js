@@ -21,6 +21,8 @@ import DetailBlog from './views/DetailBlog';
 
 import AddNewBlog from './views/AddNewBlog';
 
+import NotFound from './views/NotFound';
+
 function App() {
   let [name, setName] = useState('Minh Nguyen');//trả về [a,b]
   //hàm useState này sẽ trả về 1 array: 
@@ -122,6 +124,9 @@ function App() {
               <CountDown onTimeUp={onTimeUp} />
               <span>------------------</span>
               <NewCowntDown onTimeUp={onTimeUp} />
+            </Route>
+            <Route path="*">
+              <NotFound />
             </Route>
 
           </Switch>
