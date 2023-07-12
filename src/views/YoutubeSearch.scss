@@ -1,0 +1,48 @@
+.youtube-search-container {
+    .yt-search {
+        outline: none;
+        min-width: 500px;
+    }
+
+    button {
+        margin: 0 20px;
+        min-height: 50px;
+    }
+}
+
+.yt-result {
+    display: flex;
+    width: 90%;
+    margin: 20px 0;
+
+    .left {
+        width: 30%;
+
+        .yt-iframe {
+            width: 100%;
+            height: 300px;
+            padding: 0px 10px;
+        }
+    }
+
+    .right {
+        text-align: left;
+        width: 70%;
+        padding: 5px;
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .created-at {}
+
+        .author {}
+
+        .description {}
+    }
+}

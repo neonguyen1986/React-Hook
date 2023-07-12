@@ -23,6 +23,8 @@ import AddNewBlog from './views/AddNewBlog';
 
 import NotFound from './views/NotFound';
 
+import YoutubeSearch from './views/YoutubeSearch';
+
 function App() {
   let [name, setName] = useState('Minh Nguyen');//trả về [a,b]
   //hàm useState này sẽ trả về 1 array: 
@@ -120,10 +122,8 @@ function App() {
             <Route path="/add-new-blog">
               <AddNewBlog />
             </Route>
-            <Route path="/secret">
-              <CountDown onTimeUp={onTimeUp} />
-              <span>------------------</span>
-              <NewCowntDown onTimeUp={onTimeUp} />
+            <Route path="/youtube">
+              <YoutubeSearch />
             </Route>
             <Route path="*">
               <NotFound />
