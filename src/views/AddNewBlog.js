@@ -7,7 +7,16 @@ const AddNewBlog = () => {
 
     const handleOnClickSubmit = (event) => {
         event.preventDefault();
-        console.log('>>>check data:', title, content)
+        // if(title==='' || title===null || title===undefined) alert('empty title')
+        if (!title) {// dòng trên có thể code ngắn gọn như dòng này
+            alert('Empty title');
+            return;
+        }
+        if (!content) {
+            alert('Empty content');
+            return;
+        }
+        console.log('>>>submit: ', title, content)
     }
     return (
         <div className='add-new-container'>
