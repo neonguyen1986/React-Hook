@@ -1,11 +1,12 @@
 import './Blog.scss';
 import { useState } from 'react';
+import axios from 'axios';
 
-const AddNewBlog = () => {
+const AddNewBlog = (props) => {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
 
-    const handleOnClickSubmit = (event) => {
+    const handleOnClickSubmit = async (event) => {
         event.preventDefault();
         // if(title==='' || title===null || title===undefined) alert('empty title')
         if (!title) {// dòng trên có thể code ngắn gọn như dòng này
@@ -16,7 +17,23 @@ const AddNewBlog = () => {
             alert('Empty content');
             return;
         }
-        console.log('>>>submit: ', title, content)
+
+        //tạo biến data 
+        let data = {
+            title: title,
+            body: content,
+            userid: 1,
+        }
+
+        //post  data lên API
+        let res = await axios.post('https://jsonplaceholder.typicode.com/posts', data)
+        console.log('>>>check res post data: ', res)
+
+        if (res && res.data) {
+            let newBlog = res.data;
+            props.handleAddNew(newBlog);
+            console.log('>>> check data: ', newBlog)
+        }
     }
     return (
         <div className='add-new-container'>
